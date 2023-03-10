@@ -2,6 +2,13 @@
 
 A simple prometheus exporter written in golang.
 
+## Metrics
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `qbit_torrent_uploaded`   | gauge | Torrent total bytes uploaded, labels: `name`, `tracker`, `category` |
+| `qbit_torrent_downloaded` | gauge | Torrent total bytes downloaded, labels: `name`, `tracker`, `category` |
+
 ## Usage
 
 Make sure webui is enabled in qbittorrent settings.
