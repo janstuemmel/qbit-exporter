@@ -23,7 +23,7 @@ docker run \
     ghcr.io/janstuemmel/qbit-exporter
 ```
 
-For a docker-compose setup file, see [exampel folder](./example)
+For a `docker-compose` setup, see [exampel folder](./example)
 
 ### Prometheus
 
