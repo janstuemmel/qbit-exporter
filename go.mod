@@ -2,7 +2,11 @@ module qbit-exporter
 
 go 1.20
 
-require github.com/imroc/req/v3 v3.33.1
+require (
+	github.com/imroc/req/v3 v3.33.1
+	github.com/prometheus/client_golang v1.14.0
+	github.com/janstuemmel/easy-assert v1.0.0
+)
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -15,7 +19,6 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/onsi/ginkgo/v2 v2.2.0 // indirect
-	github.com/prometheus/client_golang v1.14.0 // indirect
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect

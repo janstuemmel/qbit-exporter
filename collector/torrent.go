@@ -1,7 +1,6 @@
 package collector
 
 import (
-	"net/url"
 	qbit "qbit-exporter/qbit"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -9,6 +8,15 @@ import (
 
 type torrentCollector struct {
 	qbit qbit.Client
+}
+
+type Torrent struct {
+	Name       string
+	Tracker    string
+	Category   string
+	SavePath   string
+	Uploaded   float64
+	Downloaded float64
 }
 
 var torrentUploaded = prometheus.NewDesc(
@@ -37,27 +45,19 @@ func (t *torrentCollector) Describe(ch chan<- *prometheus.Desc) {
 func (t *torrentCollector) Collect(ch chan<- prometheus.Metric) {
 	torrents, _ := t.qbit.GetTorrentsInfo()
 	for _, torrent := range torrents {
-		ch <- getTorrentMetric(torrentUploaded, float64(torrent.Uploaded), torrent)
-		ch <- getTorrentMetric(torrentDownloaded, float64(torrent.Downloaded), torrent)
+		t := MapTorrent(torrent)
+		ch <- getTorrentMetric(torrentUploaded, t.Uploaded, t)
+		ch <- getTorrentMetric(torrentDownloaded, t.Downloaded, t)
 	}
 }
 
-func getTorrentMetric(desc *prometheus.Desc, val float64, torrent qbit.Torrent) prometheus.Metric {
-
-	// TODO: mapping should not stay here
-	trackerHost := "error"
-	tracker, _ := url.Parse(torrent.Tracker)
-
-	if tracker.Host != "" {
-		trackerHost = tracker.Host
-	}
-
+func getTorrentMetric(desc *prometheus.Desc, val float64, torrent Torrent) prometheus.Metric {
 	return prometheus.MustNewConstMetric(
 		desc,
 		prometheus.GaugeValue,
 		val,
 		torrent.Name,
-		trackerHost,
+		torrent.Tracker,
 		torrent.Category,
 	)
 }
