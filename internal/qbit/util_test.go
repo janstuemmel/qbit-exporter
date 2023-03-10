@@ -1,7 +1,7 @@
 package qbit_test
 
 import (
-	"qbit-exporter/qbit"
+	"qbit-exporter/internal/qbit"
 	"testing"
 
 	easy_assert "github.com/janstuemmel/easy-assert"
