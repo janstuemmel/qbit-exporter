@@ -18,6 +18,7 @@ services:
     ports:
       - 8080:8080
   qbit-exporter: 
+    # image: ghcr.io/janstuemmel/qbit-exporter
     build: ../
     env_file: .env.dist
     ports:

@@ -1,6 +1,6 @@
 # qbit exporter
 
-A simple prometheus exporter written in golang.
+A simple prometheus exporter for qbittorrent written in golang.
 
 ## Metrics
 
