@@ -1,6 +1,8 @@
 name: Build and publish
 on:
   push:
+    tags:
+      - '*'
     branches:
       - 'main'
 
@@ -31,3 +33,15 @@ jobs:
         run: |
           docker build . --tag ghcr.io/janstuemmel/qbit-exporter:latest
           docker push ghcr.io/janstuemmel/qbit-exporter:latest
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: qbit-exporter
+
+      - name: Build docker image ${{ github.ref_name }}
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          docker build . --tag ghcr.io/janstuemmel/qbit-exporter:${{ github.ref_name }}
+          docker push ghcr.io/janstuemmel/qbit-exporter:${{ github.ref_name }}
