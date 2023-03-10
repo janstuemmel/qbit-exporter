@@ -29,6 +29,13 @@ Make sure webui is enabled in qbittorrent settings.
 * `QB_PASS` Your qbittorrent webui password
 * `QB_URL` Your qbittorrent webui url
 
+### Build and run
+
+```sh
+CGO_ENABLED=0 go build
+./qbit-exporter
+```
+
 ### Docker
 
 ```sh
