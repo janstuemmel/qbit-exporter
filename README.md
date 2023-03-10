@@ -6,8 +6,10 @@ A simple prometheus exporter for qbittorrent written in golang.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `qbit_torrent_uploaded`   | gauge | Torrent total bytes uploaded, labels: `name`, `tracker`, `category` |
-| `qbit_torrent_downloaded` | gauge | Torrent total bytes downloaded, labels: `name`, `tracker`, `category` |
+| `qbit_torrent_info`       | gauge | General torrent information |
+| `qbit_torrent_ratio`      | gauge | Torrent ratio, labels: `name`, `tracker`, `category`,  `save_path` |
+| `qbit_torrent_uploaded`   | gauge | Torrent total bytes uploaded, labels: `name`, `tracker`, `category`,  `save_path` |
+| `qbit_torrent_downloaded` | gauge | Torrent total bytes downloaded, labels: `name`, `tracker`, `category`,  `save_path` |
 
 ## Usage
 
