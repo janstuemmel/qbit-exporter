@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+    ports:
+      - "3000:3000"
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  qbit:
+    image: lscr.io/linuxserver/qbittorrent
+    volumes:
+      - ./data:/downloads
+    ports:
+      - 8080:8080
+  qbit-exporter: 
+    build: ../
+    env_file: .env.dist
+    ports:
+      - 9897:9897
