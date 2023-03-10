@@ -1,7 +1,7 @@
 package collector
 
 import (
-	qbit "qbit-exporter/qbit"
+	qbit "qbit-exporter/internal/qbit"
 
 	"github.com/prometheus/client_golang/prometheus"
 )

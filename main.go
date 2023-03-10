@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"qbit-exporter/collector"
-	"qbit-exporter/qbit"
+	"qbit-exporter/internal/collector"
+	"qbit-exporter/internal/qbit"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
