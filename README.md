@@ -4,12 +4,20 @@ A simple prometheus exporter for qbittorrent written in golang.
 
 ## Metrics
 
+### Torrents
+
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `qbit_torrent_info`       | gauge | General torrent information |
-| `qbit_torrent_ratio`      | gauge | Torrent ratio, labels: `name`, `tracker`, `category`,  `save_path` |
-| `qbit_torrent_uploaded`   | gauge | Torrent total bytes uploaded, labels: `name`, `tracker`, `category`,  `save_path` |
-| `qbit_torrent_downloaded` | gauge | Torrent total bytes downloaded, labels: `name`, `tracker`, `category`,  `save_path` |
+| `qbit_torrent_uploaded`   | gauge | Torrent total bytes uploaded |
+| `qbit_torrent_downloaded` | gauge | Torrent total bytes downloaded |
+| `qbit_torrent_ratio`      | gauge | Torrent ratio |
+| `qbit_torrent_size`       | gauge | Torrent size |
+| `qbit_torrent_seeds`      | gauge | Torrent number of seeders connected to |
+| `qbit_torrent_leechs`     | gauge | Torrent number of leechers connected to |
+| `qbit_torrent_upspeed`    | gauge | Torrent upload speed in bytes |
+| `qbit_torrent_dlspeed`    | gauge | Torrent download speed in bytes |
+
+Labels: `name`, `tracker`, `category`, `save_path`
 
 ## Usage
 
@@ -32,7 +40,7 @@ docker run \
     ghcr.io/janstuemmel/qbit-exporter
 ```
 
-For a `docker-compose` setup, see [exampel folder](./example)
+For a `docker-compose` setup, see [example folder](./example)
 
 ### Prometheus
 

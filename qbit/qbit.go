@@ -13,23 +13,18 @@ type Client struct {
 }
 
 type Torrent struct {
-	Name         string  `json:"name"`
-	Tracker      string  `json:"tracker"`
-	Category     string  `json:"category"`
-	SavePath     string  `json:"save_path"`
-	Size         int64   `json:"size"`
-	Progress     float64 `json:"progress"`
-	Seeds        int64   `json:"num_seeds"`
-	Leechs       int64   `json:"num_leechs"`
-	DlSpeed      int64   `json:"dlspeed"`
-	UpSpeed      int64   `json:"upseped"`
-	AmountLeft   int64   `json:"amount_left"`
-	LastActivity int64   `json:"last_activity"`
-	Eta          int64   `json:"eta"`
-	Uploaded     int64   `json:"uploaded"`
-	Downloaded   int64   `json:"downloaded"`
-	Ratio        float64 `json:"ratio"`
-	AddedOn      int64   `json:"added_on"`
+	Name       string  `json:"name"`
+	Tracker    string  `json:"tracker"`
+	Category   string  `json:"category"`
+	SavePath   string  `json:"save_path"`
+	Size       int64   `json:"size"`
+	Seeds      int64   `json:"num_seeds"`
+	Leechs     int64   `json:"num_leechs"`
+	DlSpeed    int64   `json:"dlspeed"`
+	UpSpeed    int64   `json:"upseped"`
+	Uploaded   int64   `json:"uploaded"`
+	Downloaded int64   `json:"downloaded"`
+	Ratio      float64 `json:"ratio"`
 }
 
 func NewClient(user string, pass string, url string) Client {
@@ -78,6 +73,6 @@ func (q *Client) GetTorrentsInfo() ([]Torrent, error) {
 
 		json.Unmarshal(res.Bytes(), &torrents)
 
-		return torrents, nil
+		return MapTorrents(torrents), nil
 	})
 }
