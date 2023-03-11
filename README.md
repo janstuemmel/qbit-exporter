@@ -8,16 +8,17 @@ A simple prometheus exporter for qbittorrent written in golang.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `qbit_torrent_uploaded`   | gauge | Torrent total bytes uploaded |
-| `qbit_torrent_downloaded` | gauge | Torrent total bytes downloaded |
-| `qbit_torrent_ratio`      | gauge | Torrent ratio |
-| `qbit_torrent_size`       | gauge | Torrent size |
-| `qbit_torrent_seeds`      | gauge | Torrent number of seeders connected to |
-| `qbit_torrent_leechs`     | gauge | Torrent number of leechers connected to |
-| `qbit_torrent_upspeed`    | gauge | Torrent upload speed in bytes |
-| `qbit_torrent_dlspeed`    | gauge | Torrent download speed in bytes |
+| `qbit_torrent_info`                 | gauge | Torrent general info |
+| `qbit_torrent_uploaded_bytes_total` | gauge | Torrent total bytes uploaded |
+| `qbit_torrent_uploaded_bytes_total` | gauge | Torrent total bytes downloaded |
+| `qbit_torrent_ratio_total`          | gauge | Torrent ratio |
+| `qbit_torrent_size_bytes_total`     | gauge | Torrent size |
+| `qbit_torrent_seeds_total`          | gauge | Torrent number of seeders connected to |
+| `qbit_torrent_leechs_total`         | gauge | Torrent number of leechers connected to |
+| `qbit_torrent_upspeed_bytes`        | gauge | Torrent upload speed in bytes |
+| `qbit_torrent_dlspeed_bytes`        | gauge | Torrent download speed in bytes |
 
-Labels: `name`, `tracker`, `category`, `save_path`
+Labels: `name`, `tracker`, `category`
 
 ## Usage
 

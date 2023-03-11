@@ -15,6 +15,10 @@ func MapTorrent(torrent Torrent) Torrent {
 	tracker, _ := url.Parse(torrent.Tracker)
 	return Torrent{
 		Name:         torrent.Name,
+		AddedOn:      torrent.AddedOn,
+		LastActivity: torrent.LastActivity,
+		TimeActive:   torrent.TimeActive,
+		State:        torrent.State,
 		Tracker:      getOrDefault(tracker.Host, "error"),
 		Category:     getOrDefault(torrent.Category, "Uncategorized"),
 		SavePath:     torrent.SavePath,
@@ -23,10 +27,9 @@ func MapTorrent(torrent Torrent) Torrent {
 		Leechs:       torrent.Leechs,
 		DlSpeed:      torrent.DlSpeed,
 		UpSpeed:      torrent.UpSpeed,
-		Downloaded:   torrent.Downloaded,
 		Uploaded:     torrent.Uploaded,
+		Downloaded:   torrent.Downloaded,
 		Ratio:        torrent.Ratio,
-		LastActivity: torrent.LastActivity,
 	}
 }
 

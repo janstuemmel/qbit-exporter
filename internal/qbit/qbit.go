@@ -14,6 +14,10 @@ type Client struct {
 
 type Torrent struct {
 	Name         string  `json:"name"`
+	AddedOn      int64   `json:"added_on"`
+	LastActivity int64   `json:"last_activity"`
+	TimeActive   int64   `json:"time_active"`
+	State        string  `json:"state"`
 	Tracker      string  `json:"tracker"`
 	Category     string  `json:"category"`
 	SavePath     string  `json:"save_path"`
@@ -25,7 +29,6 @@ type Torrent struct {
 	Uploaded     int64   `json:"uploaded"`
 	Downloaded   int64   `json:"downloaded"`
 	Ratio        float64 `json:"ratio"`
-	LastActivity int64   `json:"last_activity"`
 }
 
 func NewClient(user string, pass string, url string) Client {

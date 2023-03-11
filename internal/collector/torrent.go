@@ -1,7 +1,9 @@
 package collector
 
 import (
-	qbit "qbit-exporter/internal/qbit"
+	"fmt"
+	"qbit-exporter/internal/qbit"
+	"strconv"
 
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -10,66 +12,81 @@ type torrentCollector struct {
 	qbit qbit.Client
 }
 
+var torrentLabels = []string{"name", "tracker", "category"}
+
+var torrentInfo = prometheus.NewDesc(
+	"qbit_torrent_info",
+	"Torrent info",
+	[]string{
+		"name",
+		"category",
+		"state",
+		"tracker",
+		"save_path",
+		"downloaded",
+		"uploaded",
+		"ratio",
+		"seeds",
+		"leechs",
+		"added_on",
+		"last_activity",
+	},
+	nil,
+)
+
 var torrentUploaded = prometheus.NewDesc(
-	"qbit_torrent_uploaded",
+	"qbit_torrent_uploaded_bytes_total",
 	"Torrent total bytes uploaded",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
 var torrentDownloaded = prometheus.NewDesc(
-	"qbit_torrent_downloaded",
+	"qbit_torrent_downloaded_bytes_total",
 	"Torrent total bytes downloaded",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
 var torrentRatio = prometheus.NewDesc(
-	"qbit_torrent_ratio",
+	"qbit_torrent_ratio_total",
 	"Torrent ratio",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
 var torrentSize = prometheus.NewDesc(
-	"qbit_torrent_size",
+	"qbit_torrent_size_bytes_total",
 	"Torrent size",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
 var torrentSeeds = prometheus.NewDesc(
-	"qbit_torrent_seeds",
+	"qbit_torrent_seeds_total",
 	"Torrent number of seeds connected to",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
 var torrentLeechs = prometheus.NewDesc(
-	"qbit_torrent_leechs",
+	"qbit_torrent_leechs_total",
 	"Torrent number of leechers connected to",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
 var torrentUpSpeed = prometheus.NewDesc(
-	"qbit_torrent_upspeed",
+	"qbit_torrent_upspeed_bytes",
 	"Torrent upload speed in bytes",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
 var torrentDlSpeed = prometheus.NewDesc(
-	"qbit_torrent_dlspeed",
+	"qbit_torrent_dlspeed_bytes",
 	"Torrent download speed in bytes",
-	[]string{"name", "tracker", "category", "save_path"},
-	nil,
-)
-
-var torrentLastActivity = prometheus.NewDesc(
-	"qbit_torrent_last_activity",
-	"Torrent last time a chunk was uploaded/downloaded",
-	[]string{"name", "tracker", "category", "save_path"},
+	torrentLabels,
 	nil,
 )
 
@@ -86,7 +103,6 @@ func (t *torrentCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- torrentLeechs
 	ch <- torrentUpSpeed
 	ch <- torrentDlSpeed
-	ch <- torrentLastActivity
 }
 
 func (t *torrentCollector) Collect(ch chan<- prometheus.Metric) {
@@ -100,7 +116,7 @@ func (t *torrentCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- getTorrentMetric(torrentLeechs, torrent.Leechs, torrent)
 		ch <- getTorrentMetric(torrentUpSpeed, torrent.UpSpeed, torrent)
 		ch <- getTorrentMetric(torrentDlSpeed, torrent.DlSpeed, torrent)
-		ch <- getTorrentMetric(torrentLastActivity, torrent.LastActivity, torrent)
+		ch <- getTorrentInfoMetric(torrent)
 	}
 }
 
@@ -112,6 +128,25 @@ func getTorrentMetric[T MetricValue](desc *prometheus.Desc, val T, torrent qbit.
 		torrent.Name,
 		torrent.Tracker,
 		torrent.Category,
+	)
+}
+
+func getTorrentInfoMetric(torrent qbit.Torrent) prometheus.Metric {
+	return prometheus.MustNewConstMetric(
+		torrentInfo,
+		prometheus.GaugeValue,
+		1,
+		torrent.Name,
+		torrent.Category,
+		torrent.State,
+		torrent.Tracker,
 		torrent.SavePath,
+		strconv.FormatInt(torrent.Downloaded, 10),
+		strconv.FormatInt(torrent.Uploaded, 10),
+		fmt.Sprintf("%.2f", torrent.Ratio),
+		strconv.FormatInt(torrent.Seeds, 10),
+		strconv.FormatInt(torrent.Leechs, 10),
+		strconv.FormatInt(torrent.AddedOn, 10),
+		strconv.FormatInt(torrent.LastActivity, 10),
 	)
 }
