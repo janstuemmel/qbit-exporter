@@ -21,7 +21,7 @@ type Torrent struct {
 	Seeds      int64   `json:"num_seeds"`
 	Leechs     int64   `json:"num_leechs"`
 	DlSpeed    int64   `json:"dlspeed"`
-	UpSpeed    int64   `json:"upseped"`
+	UpSpeed    int64   `json:"upspeed"`
 	Uploaded   int64   `json:"uploaded"`
 	Downloaded int64   `json:"downloaded"`
 	Ratio      float64 `json:"ratio"`
