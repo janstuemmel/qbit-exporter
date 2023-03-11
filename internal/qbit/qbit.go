@@ -13,18 +13,19 @@ type Client struct {
 }
 
 type Torrent struct {
-	Name       string  `json:"name"`
-	Tracker    string  `json:"tracker"`
-	Category   string  `json:"category"`
-	SavePath   string  `json:"save_path"`
-	Size       int64   `json:"size"`
-	Seeds      int64   `json:"num_seeds"`
-	Leechs     int64   `json:"num_leechs"`
-	DlSpeed    int64   `json:"dlspeed"`
-	UpSpeed    int64   `json:"upspeed"`
-	Uploaded   int64   `json:"uploaded"`
-	Downloaded int64   `json:"downloaded"`
-	Ratio      float64 `json:"ratio"`
+	Name         string  `json:"name"`
+	Tracker      string  `json:"tracker"`
+	Category     string  `json:"category"`
+	SavePath     string  `json:"save_path"`
+	Size         int64   `json:"size"`
+	Seeds        int64   `json:"num_seeds"`
+	Leechs       int64   `json:"num_leechs"`
+	DlSpeed      int64   `json:"dlspeed"`
+	UpSpeed      int64   `json:"upspeed"`
+	Uploaded     int64   `json:"uploaded"`
+	Downloaded   int64   `json:"downloaded"`
+	Ratio        float64 `json:"ratio"`
+	LastActivity int64   `json:"last_activity"`
 }
 
 func NewClient(user string, pass string, url string) Client {

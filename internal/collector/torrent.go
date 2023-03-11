@@ -66,6 +66,13 @@ var torrentDlSpeed = prometheus.NewDesc(
 	nil,
 )
 
+var torrentLastActivity = prometheus.NewDesc(
+	"qbit_torrent_last_activity",
+	"Torrent last time a chunk was uploaded/downloaded",
+	[]string{"name", "tracker", "category", "save_path"},
+	nil,
+)
+
 func NewTorrentCollector(qbit qbit.Client) prometheus.Collector {
 	return &torrentCollector{qbit}
 }
@@ -79,6 +86,7 @@ func (t *torrentCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- torrentLeechs
 	ch <- torrentUpSpeed
 	ch <- torrentDlSpeed
+	ch <- torrentLastActivity
 }
 
 func (t *torrentCollector) Collect(ch chan<- prometheus.Metric) {
@@ -92,6 +100,7 @@ func (t *torrentCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- getTorrentMetric(torrentLeechs, torrent.Leechs, torrent)
 		ch <- getTorrentMetric(torrentUpSpeed, torrent.UpSpeed, torrent)
 		ch <- getTorrentMetric(torrentDlSpeed, torrent.DlSpeed, torrent)
+		ch <- getTorrentMetric(torrentLastActivity, torrent.LastActivity, torrent)
 	}
 }
 
