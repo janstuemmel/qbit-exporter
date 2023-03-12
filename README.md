@@ -12,7 +12,6 @@ A simple prometheus exporter for qbittorrent written in golang.
 | `qbit_torrent_uploaded_bytes_total` | gauge | Torrent total bytes uploaded |
 | `qbit_torrent_uploaded_bytes_total` | gauge | Torrent total bytes downloaded |
 | `qbit_torrent_ratio_total`          | gauge | Torrent ratio |
-| `qbit_torrent_size_bytes_total`     | gauge | Torrent size |
 | `qbit_torrent_seeds_total`          | gauge | Torrent number of seeders connected to |
 | `qbit_torrent_leechs_total`         | gauge | Torrent number of leechers connected to |
 | `qbit_torrent_upspeed_bytes`        | gauge | Torrent upload speed in bytes |

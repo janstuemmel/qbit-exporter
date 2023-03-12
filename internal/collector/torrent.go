@@ -56,13 +56,6 @@ var torrentRatio = prometheus.NewDesc(
 	nil,
 )
 
-var torrentSize = prometheus.NewDesc(
-	"qbit_torrent_size_bytes_total",
-	"Torrent size",
-	torrentLabels,
-	nil,
-)
-
 var torrentSeeds = prometheus.NewDesc(
 	"qbit_torrent_seeds_total",
 	"Torrent number of seeds connected to",
@@ -99,7 +92,6 @@ func (t *torrentCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- torrentUploaded
 	ch <- torrentDownloaded
 	ch <- torrentRatio
-	ch <- torrentSize
 	ch <- torrentSeeds
 	ch <- torrentLeechs
 	ch <- torrentUpSpeed
@@ -112,7 +104,6 @@ func (t *torrentCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- getTorrentMetric(torrentUploaded, torrent.Uploaded, torrent)
 		ch <- getTorrentMetric(torrentDownloaded, torrent.Downloaded, torrent)
 		ch <- getTorrentMetric(torrentRatio, torrent.Ratio, torrent)
-		ch <- getTorrentMetric(torrentSize, torrent.Size, torrent)
 		ch <- getTorrentMetric(torrentSeeds, torrent.Seeds, torrent)
 		ch <- getTorrentMetric(torrentLeechs, torrent.Leechs, torrent)
 		ch <- getTorrentMetric(torrentUpSpeed, torrent.UpSpeed, torrent)
