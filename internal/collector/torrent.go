@@ -143,6 +143,7 @@ func getTorrentInfoMetric(torrent qbit.Torrent) prometheus.Metric {
 		strconv.FormatInt(torrent.Size, 10),
 		torrent.Tracker,
 		torrent.SavePath,
+		strconv.FormatInt(torrent.Downloaded, 10),
 		strconv.FormatInt(torrent.Uploaded, 10),
 		fmt.Sprintf("%.2f", torrent.Ratio),
 		strconv.FormatInt(torrent.Seeds, 10),
