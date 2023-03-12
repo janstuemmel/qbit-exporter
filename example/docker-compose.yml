@@ -5,6 +5,8 @@ services:
     image: grafana/grafana
     volumes:
       - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./dashboard.json:/var/lib/grafana/dashboards/dashboard.json
     ports:
       - "3000:3000"
   prometheus:
@@ -18,5 +20,6 @@ services:
     ports:
       - 8080:8080
   qbit-exporter: 
-    image: ghcr.io/janstuemmel/qbit-exporter
+    # image: ghcr.io/janstuemmel/qbit-exporter
+    build: ../
     env_file: .env

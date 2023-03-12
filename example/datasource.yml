@@ -1,6 +1,7 @@
 datasources:
 - name: prometheus
+  uid: prometheus
   type: prometheus
-  url: http://prometheus:9090
   isDefault: true
   editable: false
+  url: http://prometheus:9090
